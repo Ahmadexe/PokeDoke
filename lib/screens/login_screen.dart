@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pokedoke/constants/colors.dart';
+import 'package:pokedoke/screens/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -47,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       FormBuilderTextField(
                         name: 'emailField',
                         cursorColor: secondaryColor,
+                        textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
                           labelText: 'Email',
                           hintText: 'Enter your email',
@@ -61,7 +63,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderSide: BorderSide(color: secondaryColor),
                           ),
                         ),
-                        validator: FormBuilderValidators.email(),
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.email(),
+                          FormBuilderValidators.required()
+                        ]),
                       ),
                       const SizedBox(
                         height: 30,
@@ -84,15 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderSide: BorderSide(color: secondaryColor),
                           ),
                         ),
-                        validator: (value) {
-                          if (value == null) {
-                            return "Field can't be empty.";
-                          }
-                          if (value.length < 8) {
-                            return "Password can't be shorter than 8 words.";
-                          }
-                          return null;
-                        },
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.minLength(8),
+                          FormBuilderValidators.required()
+                        ])
                       ),
                       const SizedBox(
                         height: 30,
@@ -118,10 +118,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   )),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.42,
+                height: MediaQuery.of(context).size.height * 0.43,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const SignupScreen())
+                  );
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
