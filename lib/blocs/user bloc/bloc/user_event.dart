@@ -20,6 +20,10 @@ class SignupUser implements UserEvent {
   });
 }
 
+class LogoutUser implements UserEvent {
+
+}
+
 class SetUserNameId implements UserEvent {
   String name;
   String id;

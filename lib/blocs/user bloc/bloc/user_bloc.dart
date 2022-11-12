@@ -26,6 +26,19 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
     on<LoginUser>(_loginUser);
     on<SignupUser>(_signupUser);
     on<SetUserNameId>(_setNameId);
+    on<LogoutUser>(_logoutUser);
+  }
+
+  _logoutUser(LogoutUser event, Emitter<UserState> emit) async {
+    await Authentication().signOut();
+    UserModel user = UserModel(
+        userEmail: state.user.userEmail,
+        userPassword: state.user.userPassword,
+        userName: state.user.userName,
+        userId: state.user.userId,
+        isLoggedIn: false,
+        isSignedUp: true);
+    emit(UserState(user: user));
   }
 
   _setNameId(SetUserNameId event, Emitter<UserState> emit) async {
@@ -36,7 +49,7 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
         userId: event.id,
         isLoggedIn: true,
         isSignedUp: true);
-        emit(UserState(user: user));
+    emit(UserState(user: user));
   }
 
   _loginUser(LoginUser event, Emitter<UserState> emit) async {

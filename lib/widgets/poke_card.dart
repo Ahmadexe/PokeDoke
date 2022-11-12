@@ -14,19 +14,21 @@ class PokeCard extends StatelessWidget {
         children: [
           Positioned(
             top: 30,
-            left: 20,
+            left: 10,
             child: Text(pokemon.name!) 
           ),
           Positioned(
             top: 45,
-            left: 20,
+            left: 10,
             child: Text(pokemon.type![0]) 
           ),
           Positioned(
             bottom: 5,
-            right: 5,
+            right: -10,
             child: CachedNetworkImage(
               imageUrl: pokemon.img!,
+              height: 100,
+              fit: BoxFit.fitHeight,
             )
           )
         ],
