@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:core';
 
 class Pokemons {
@@ -9,13 +10,13 @@ class Pokemons {
     if (json['pokemon'] != null) {
       pokemon = <Pokemon>[];
       json['pokemon'].forEach((v) {
-        pokemon!.add(new Pokemon.fromJson(v));
+        pokemon!.add(Pokemon.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.pokemon != null) {
       data['pokemon'] = this.pokemon!.map((v) => v.toJson()).toList();
     }
@@ -74,19 +75,19 @@ class Pokemon {
     if (json['next_evolution'] != null) {
       nextEvolution = <NextEvolution>[];
       json['next_evolution'].forEach((v) {
-        nextEvolution!.add(new NextEvolution.fromJson(v));
+        nextEvolution!.add(NextEvolution.fromJson(v));
       });
     }
     if (json['prev_evolution'] != null) {
       prevEvolution = <PrevEvolution>[];
       json['prev_evolution'].forEach((v) {
-        prevEvolution!.add(new PrevEvolution.fromJson(v));
+        prevEvolution!.add(PrevEvolution.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['num'] = this.num;
     data['name'] = this.name;
@@ -110,6 +111,11 @@ class Pokemon {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Pokemon(id: $id, num: $num, name: $name, img: $img, type: $type, height: $height, weight: $weight, candy: $candy, egg: $egg, spawnChance: $spawnChance, avgSpawns: $avgSpawns, spawnTime: $spawnTime, weaknesses: $weaknesses, nextEvolution: $nextEvolution, prevEvolution: $prevEvolution)';
+  }
 }
 
 class NextEvolution {
@@ -124,7 +130,7 @@ class NextEvolution {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['num'] = this.num;
     data['name'] = this.name;
     return data;
@@ -143,7 +149,7 @@ class PrevEvolution{
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['num'] = this.num;
     data['name'] = this.name;
     return data;

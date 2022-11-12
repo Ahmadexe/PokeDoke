@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getData() async {
     pokemons = await ApiService().getPokemons();
-    print(pokemons.pokemon);
+    print(pokemons.pokemon![0].toString());
   }
 
   @override
