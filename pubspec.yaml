@@ -49,6 +49,7 @@ dependencies:
   form_builder_validators: ^8.4.0
   string_validator: ^0.3.0
   awesome_snackbar_content: ^0.1.0
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
