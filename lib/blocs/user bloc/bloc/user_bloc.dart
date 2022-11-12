@@ -6,7 +6,6 @@ import 'package:meta/meta.dart';
 import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/models/user_model.dart';
 import 'dart:convert';
-
 import 'package:pokedoke/services/authentications.dart';
 import 'package:pokedoke/widgets/snackbar.dart';
 part 'user_event.dart';
@@ -42,7 +41,6 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
 
   _loginUser(LoginUser event, Emitter<UserState> emit) async {
     String result = await Authentication().login(event.user);
-    print(result);
     if (result == "success") {
       String _name = await getUserName(FirebaseAuth.instance.currentUser!.uid);
       String _id = FirebaseAuth.instance.currentUser!.uid;
@@ -55,7 +53,7 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
               isLoggedIn: true,
               isSignedUp: true)));
       if (mounted) {
-        displaySnackbar(event.context, "success", "Welcome");
+        displaySnackbar(event.context, "success", "Welcome $_name");
       }
     } else {
       emit(UserState(
@@ -83,7 +81,6 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
               userId: event.user.userId,
               isLoggedIn: false,
               isSignedUp: true)));
-      print("All good");
     } else {
       emit(UserState(
           user: UserModel(
@@ -93,7 +90,6 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
               userId: event.user.userId,
               isLoggedIn: false,
               isSignedUp: false)));
-      print("Something is wrong");
     }
   }
 
