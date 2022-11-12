@@ -5,15 +5,17 @@ class UserModel {
   String? userId;
   String? userName;
   String? userEmail;
-  String? password;
+  String? userPassword;
   bool isLoggedIn;
+  bool isSignedUp;
   
   UserModel({
     this.userId,
     this.userName,
     this.userEmail,
-    this.password,
+    this.userPassword,
     required this.isLoggedIn,
+    required this.isSignedUp,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,8 +23,9 @@ class UserModel {
       'userId': userId,
       'userName': userName,
       'userEmail': userEmail,
-      'password': password,
+      'userPassword': userPassword,
       'isLoggedIn': isLoggedIn,
+      'isSignedUp': isSignedUp,
     };
   }
 
@@ -31,8 +34,10 @@ class UserModel {
       userId: map['userId'] != null ? map['userId'] as String : null,
       userName: map['userName'] != null ? map['userName'] as String : null,
       userEmail: map['userEmail'] != null ? map['userEmail'] as String : null,
-      password: map['password'] != null ? map['password'] as String : null,
+      userPassword:
+          map['userPassword'] != null ? map['userPassword'] as String : null,
       isLoggedIn: map['isLoggedIn'] as bool,
+      isSignedUp: map['isSignedUp'] as bool,
     );
   }
 
