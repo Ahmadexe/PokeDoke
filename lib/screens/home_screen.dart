@@ -9,6 +9,7 @@ import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/models/pokemons.dart';
 import 'package:pokedoke/services/authentications.dart';
 import 'package:pokedoke/widgets/poke_card.dart';
+import 'package:pokedoke/widgets/poke_categories_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -107,16 +108,71 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 : Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2, childAspectRatio: 1.4),
-                        itemCount: pokemons.pokemon!.length,
-                        itemBuilder: (context, index) {
-                          return PokeCard(
-                            pokemon: pokemons.pokemon![index],
-                          );
-                        }),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 30,),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Wrap(
+                              spacing: 6,
+                              children: [
+                                CategoryCard(
+                                  image: "pikachu.jpg",
+                                  title: "Electric",
+                                  onPressed: (){},
+                                ),
+                                CategoryCard(
+                                  image: "charizard.jpg",
+                                  title: "Fire",
+                                  onPressed: (){},
+                                ),
+                                CategoryCard(
+                                  image: "mewtwo.jpg",
+                                  title: "Psychic",
+                                  onPressed: (){},
+                                ),
+                                CategoryCard(
+                                  image: "water.jpg",
+                                  title: "Water",
+                                  onPressed: (){},
+                                ),
+                                CategoryCard(
+                                  image: "poison.jpg",
+                                  title: "Poison",
+                                  onPressed: (){},
+                                ),
+                                CategoryCard(
+                                  image: "rockPokemon.jpg",
+                                  title: "Rock",
+                                  onPressed: (){},
+                                ),
+                                CategoryCard(
+                                  image: "ghost.jpg",
+                                  title: "Ghost",
+                                  onPressed: (){},
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 30,),
+                          GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, childAspectRatio: 1.4),
+                              itemCount: pokemons.pokemon!.length,
+                              shrinkWrap: true,
+                              // scrollDirection: Axis.vertical,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return PokeCard(
+                                  pokemon: pokemons.pokemon![index],
+                                );
+                              }),
+                        ],
+                      ),
+                    ),
                   ));
       },
     );
