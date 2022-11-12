@@ -19,3 +19,19 @@ class SignupUser implements UserEvent {
     required this.user,
   });
 }
+
+class SetUserNameId implements UserEvent {
+  String name;
+  String id;
+  SetUserNameId({
+    required this.name,
+    required this.id,
+  });
+}
+
+class SetUserId implements UserEvent {
+  String id;
+  SetUserId({
+    required this.id,
+  });
+}
