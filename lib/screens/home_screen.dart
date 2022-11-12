@@ -7,19 +7,18 @@ import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
 import 'package:pokedoke/constants/colors.dart';
 import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/models/pokemons.dart';
+import 'package:pokedoke/widgets/poke_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
-  
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   late Pokemons pokemons;
-
+  bool _loading = false;
   @override
   void initState() {
     getData();
@@ -27,8 +26,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getData() async {
+    setState(() {
+      _loading = true;
+    });
     pokemons = await ApiService().getPokemons();
-    print(pokemons.pokemon![0].toString());
+    setState(() {
+      _loading = false;
+    });
   }
 
   @override
@@ -36,9 +40,21 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(),
-          body: Text(state.user.userName!),
-        );
+            appBar: AppBar(),
+            body: _loading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, childAspectRatio: 1.4),
+                    itemCount: pokemons.pokemon!.length,
+                    itemBuilder: (context, index) {
+                      return PokeCard(
+                        pokemon: pokemons.pokemon![index],
+                      );
+                    }));
       },
     );
   }
