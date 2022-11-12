@@ -6,8 +6,10 @@ abstract class UserEvent {}
 
 class LoginUser implements UserEvent {
   UserModel user;
+  BuildContext context;
   LoginUser({
     required this.user,
+    required this.context,
   });
 }
 

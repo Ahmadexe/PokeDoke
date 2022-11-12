@@ -7,7 +7,6 @@ import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
 import 'package:pokedoke/firebase_options.dart';
 import 'package:pokedoke/screens/home_screen.dart';
 import 'package:pokedoke/screens/login_screen.dart';
-import 'package:pokedoke/screens/signup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +25,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => UserBloc(),
-      child: const MaterialApp(
-        home: SignupScreen(),
+      child:  MaterialApp(
+        home: BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) {
+            if (state.user.isLoggedIn) {
+              return HomeScreen();
+            } else {
+              return LoginScreen();
+            }
+          },
+        ),
       ),
     );
   }
