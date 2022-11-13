@@ -140,7 +140,8 @@ class _PokeDetailsScreenState extends State<PokeDetailsScreen> {
                               context.read<FavouritesBloc>().add(
                                   AddToFavourites(
                                       pokemon: widget.pokemon,
-                                      uId: state.user.userId!));
+                                      uId: state.user.userId!,
+                                      context: context));
                             },
                             style: ButtonStyle(
                                 backgroundColor:

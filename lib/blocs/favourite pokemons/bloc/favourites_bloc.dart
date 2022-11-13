@@ -1,11 +1,16 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pokedoke/models/pokemons.dart';
 import 'dart:convert';
 
+import 'package:pokedoke/widgets/snackbar.dart';
+
 part 'favourites_event.dart';
 part 'favourites_state.dart';
+
+bool mounted = true;
 
 class FavouritesBloc extends HydratedBloc<FavouritesEvent, FavouritesState> {
   FavouritesBloc() : super(FavouritesState()) {
@@ -37,6 +42,9 @@ class FavouritesBloc extends HydratedBloc<FavouritesEvent, FavouritesState> {
         uId: users
       )
     );
+    if (mounted) {
+        displaySnackbar(event.context, "success", "${event.pokemon.name} has been added to favourites!");
+      }
   }
 
   @override

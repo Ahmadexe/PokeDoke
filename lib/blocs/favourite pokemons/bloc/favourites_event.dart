@@ -7,9 +7,11 @@ abstract class FavouritesEvent {}
 class AddToFavourites implements FavouritesEvent {
   Pokemon pokemon;
   String uId;
+  BuildContext context;
   AddToFavourites({
     required this.pokemon,
     required this.uId,
+    required this.context
   });
 }
 
