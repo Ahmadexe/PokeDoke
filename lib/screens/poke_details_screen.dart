@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedoke/blocs/favourite%20pokemons/bloc/favourites_bloc.dart';
 import 'package:pokedoke/constants/colors.dart';
 import 'package:pokedoke/models/pokemons.dart';
 
@@ -33,27 +35,26 @@ class _PokeDetailsScreenState extends State<PokeDetailsScreen> {
       ),
       body: Stack(
         children: [
-
           Positioned(
             top: 30,
             left: 30,
             child: Column(
               children: [
-                Text(widget.pokemon.name!, style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w600,
-                  color: scaffoldBackgroundColor
-                ),),
-                Text(widget.pokemon.type![0],style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: scaffoldBackgroundColor
-                ))
+                Text(
+                  widget.pokemon.name!,
+                  style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w600,
+                      color: scaffoldBackgroundColor),
+                ),
+                Text(widget.pokemon.type![0],
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: scaffoldBackgroundColor))
               ],
             ),
-
           ),
-
           Positioned(
             bottom: 0,
             // This is the main info container
@@ -133,7 +134,11 @@ class _PokeDetailsScreenState extends State<PokeDetailsScreen> {
                     SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context
+                                .read<FavouritesBloc>()
+                                .add(AddToFavourites(pokemon: widget.pokemon));
+                          },
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   widget.color)),

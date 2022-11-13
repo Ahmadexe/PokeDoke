@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
 import 'dart:core';
 
 class Pokemons {
@@ -135,9 +136,23 @@ class NextEvolution {
     data['name'] = this.name;
     return data;
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'num': num,
+      'name': name,
+    };
+  }
+
+  factory NextEvolution.fromMap(Map<String, dynamic> map) {
+    return NextEvolution(
+      num: map['num'] != null ? map['num'] as String : null,
+      name: map['name'] != null ? map['name'] as String : null,
+    );
+  }
 }
 
-class PrevEvolution{
+class PrevEvolution {
   String? num;
   String? name;
 
@@ -153,5 +168,19 @@ class PrevEvolution{
     data['num'] = this.num;
     data['name'] = this.name;
     return data;
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'num': num,
+      'name': name,
+    };
+  }
+
+  factory PrevEvolution.fromMap(Map<String, dynamic> map) {
+    return PrevEvolution(
+      num: map['num'] != null ? map['num'] as String : null,
+      name: map['name'] != null ? map['name'] as String : null,
+    );
   }
 }

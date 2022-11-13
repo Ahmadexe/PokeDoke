@@ -7,6 +7,7 @@ import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
 import 'package:pokedoke/constants/colors.dart';
 import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/models/pokemons.dart';
+import 'package:pokedoke/screens/favourites_screen.dart';
 import 'package:pokedoke/services/authentications.dart';
 import 'package:pokedoke/widgets/poke_card.dart';
 import 'package:pokedoke/widgets/poke_categories_card.dart';
@@ -69,6 +70,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     state.user.userName!,
                     style:
                         TextStyle(fontSize: 16, color: scaffoldBackgroundColor),
+                  ),
+                  ListTile(
+                    tileColor: secondaryColor,
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => FavouritePokemonsScreen())
+                      );
+                    },
+                    leading: Icon(
+                      Icons.favorite,
+                      color: scaffoldBackgroundColor,
+                    ),
+                    title: Text("View Favourites", style: TextStyle(color: scaffoldBackgroundColor),),
                   ),
                   ListTile(
                     tileColor: secondaryColor,

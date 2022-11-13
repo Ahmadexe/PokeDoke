@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pokedoke/blocs/favourite%20pokemons/bloc/favourites_bloc.dart';
 import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
 import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/firebase_options.dart';
@@ -25,9 +26,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => UserBloc(),
-      child:  MaterialApp(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => UserBloc()),
+        BlocProvider(lazy: false, create: (context) => FavouritesBloc()),
+      ],
+      child: MaterialApp(
         home: BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
             if (state.user.isLoggedIn) {
@@ -41,11 +45,5 @@ class MyApp extends StatelessWidget {
     );
   }
 
-
-  getData() async {
-    
-    
-  }
-
-
+  getData() async {}
 }
