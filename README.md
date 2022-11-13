@@ -28,3 +28,15 @@ Apps a day before mids do no harm.
 7. [x] Mark Pokemons as favourites
 8. [x] Save favourite Pokemons in local storage     
 
+## Screenshots
+![Login Screen](templates/images/loginpokedoke.jpeg)
+![Signup Screen](templates/images/signuppokedoke.jpeg)
+![Home Screen](templates/images/homepokedoke.jpeg)
+![Drawer](templates/images/drawerpokedoke.jpeg)
+![Favourite Pokemon](templates/images/favpokemon1.jpeg)
+![Favourite Pokemon](templates/images/favpokemon2.jpeg)
+![Favourite Pokemon](templates/images/favscreen.jpeg)
+
+
+
+
