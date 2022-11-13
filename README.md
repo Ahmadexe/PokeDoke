@@ -37,6 +37,6 @@ Apps a day before mids do no harm.
 ![Favourite Pokemon](templates/images/favpokemon2.jpeg)
 ![Favourite Pokemon](templates/images/favscreen.jpeg)
 
-
-
-
+## UI Inspiration
+The user interface has been inspired by the work of Saepul Nawan. Visit his dribbble profile and the work he has done using the following link.
+[Saepul Nawan - UI for Pokemon App](https://dribbble.com/shots/6540871-Pokedex-App)
