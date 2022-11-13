@@ -1,16 +1,30 @@
 # pokedoke
+## Find Pokemons and look up your favourite Pokemons!
+Apps a day before mids do no harm.
+## Fucntionalities
+- Signup
+- Login
+- View all Pokemons
+- View Details of a Pokemon
+- Mark Pokemons as favourite
+- Remove Pokemons from favourites
 
-A new Flutter project.
+## Libraries/Tech stack
+- Flutter (Create cool frontend)
+- Firebase (An even cooler backend)
+- Bloc (Manage state using Blocs)
+- Hydrated Bloc (Preserve state in local storage.)
+- Awesome Snackbar 
+- Flutter From Builder
+- Form Builder Validators
 
-## Getting Started
+## Tasks completed
+1. [x] Login via Firebase Auth
+2. [x] Manage user properties via Cloud Firestore 
+3. [x] Keep users logged in via BloC
+4. [x] Generate and validate form fields using Flutter Form Builder
+5. [x] Display Pokemons via Poke API
+6. [x] Display details of Pokemons
+7. [x] Mark Pokemons as favourites
+8. [x] Save favourite Pokemons in local storage     
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
