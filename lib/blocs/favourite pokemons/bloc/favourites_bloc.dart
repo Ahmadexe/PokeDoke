@@ -10,8 +10,21 @@ part 'favourites_state.dart';
 class FavouritesBloc extends HydratedBloc<FavouritesEvent, FavouritesState> {
   FavouritesBloc() : super(FavouritesState()) {
     on<AddToFavourites>(_addToFavourites);
+    on<DeleteFavourites>(_deleteFavourites);
   }
   
+  _deleteFavourites(DeleteFavourites event, Emitter<FavouritesState> emit) {
+    final state = this.state;
+    var favourites = state.favouritePokemons;
+    for (int i = 0; i < favourites.length; i++) {
+      if (favourites[i].isEqual(event.pokemon)) {
+        favourites.removeAt(i);
+        break;
+      }
+    }
+    emit(FavouritesState(favouritePokemons: favourites));
+  }
+
   _addToFavourites(AddToFavourites event, Emitter<FavouritesState> emit) {
     final state = this.state;
     emit(

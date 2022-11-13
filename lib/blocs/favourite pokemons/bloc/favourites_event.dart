@@ -12,5 +12,8 @@ class AddToFavourites implements FavouritesEvent {
 }
 
 class DeleteFavourites implements FavouritesEvent{
-
+Pokemon pokemon;
+  DeleteFavourites({
+    required this.pokemon,
+  });
 }

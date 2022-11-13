@@ -117,6 +117,10 @@ class Pokemon {
   String toString() {
     return 'Pokemon(id: $id, num: $num, name: $name, img: $img, type: $type, height: $height, weight: $weight, candy: $candy, egg: $egg, spawnChance: $spawnChance, avgSpawns: $avgSpawns, spawnTime: $spawnTime, weaknesses: $weaknesses, nextEvolution: $nextEvolution, prevEvolution: $prevEvolution)';
   }
+
+  bool isEqual(Pokemon other) {
+    return this.toString() == other.toString();
+  }
 }
 
 class NextEvolution {
