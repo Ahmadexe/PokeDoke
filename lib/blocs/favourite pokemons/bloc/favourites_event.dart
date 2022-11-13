@@ -6,13 +6,15 @@ abstract class FavouritesEvent {}
 
 class AddToFavourites implements FavouritesEvent {
   Pokemon pokemon;
+  String uId;
   AddToFavourites({
     required this.pokemon,
+    required this.uId,
   });
 }
 
 class DeleteFavourites implements FavouritesEvent{
-Pokemon pokemon;
+  Pokemon pokemon;
   DeleteFavourites({
     required this.pokemon,
   });

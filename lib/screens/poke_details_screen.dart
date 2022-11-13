@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedoke/blocs/favourite%20pokemons/bloc/favourites_bloc.dart';
+import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
 import 'package:pokedoke/constants/colors.dart';
 import 'package:pokedoke/models/pokemons.dart';
 
@@ -131,22 +132,26 @@ class _PokeDetailsScreenState extends State<PokeDetailsScreen> {
                       ],
                     ),
                     Expanded(child: Container()),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context
-                                .read<FavouritesBloc>()
-                                .add(AddToFavourites(pokemon: widget.pokemon));
-                          },
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  widget.color)),
-                          child: const Text(
-                            "Add to favourites!",
-                            style: TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                        ))
+                    BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+                      return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              context.read<FavouritesBloc>().add(
+                                  AddToFavourites(
+                                      pokemon: widget.pokemon,
+                                      uId: state.user.userId!));
+                            },
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        widget.color)),
+                            child: const Text(
+                              "Add to favourites!",
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                          ));
+                    })
                   ],
                 ),
               ),

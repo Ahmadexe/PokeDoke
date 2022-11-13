@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedoke/blocs/favourite%20pokemons/bloc/favourites_bloc.dart';
+import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
 import 'package:pokedoke/constants/colors.dart';
+import 'package:pokedoke/global/global_methods.dart';
 import 'package:pokedoke/widgets/favourite_pokemon_tile.dart';
 
 class FavouritePokemonsScreen extends StatefulWidget {
@@ -17,7 +19,10 @@ class _FavouritePokemonsScreenState extends State<FavouritePokemonsScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<FavouritesBloc, FavouritesState>(
       builder: (context, state) {
-        var favPokemons = state.favouritePokemons;
+        var favPokemonsAll = state.favouritePokemons;
+        var users = state.uId;
+        String currentUser = context.read<UserBloc>().state.user.userId!;
+        var favPokemons = getFilteredFavourites(favPokemonsAll, users, currentUser);
         return Scaffold(
           backgroundColor: scaffoldBackgroundColor,
 

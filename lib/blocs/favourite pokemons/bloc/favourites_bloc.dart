@@ -16,20 +16,25 @@ class FavouritesBloc extends HydratedBloc<FavouritesEvent, FavouritesState> {
   _deleteFavourites(DeleteFavourites event, Emitter<FavouritesState> emit) {
     final state = this.state;
     var favourites = state.favouritePokemons;
+    var users = state.uId;
     for (int i = 0; i < favourites.length; i++) {
       if (favourites[i].isEqual(event.pokemon)) {
         favourites.removeAt(i);
+        users.removeAt(i);
         break;
       }
     }
-    emit(FavouritesState(favouritePokemons: favourites));
+    emit(FavouritesState(favouritePokemons: favourites, uId: users));
   }
 
   _addToFavourites(AddToFavourites event, Emitter<FavouritesState> emit) {
     final state = this.state;
+    List<Pokemon> favs = List.from(state.favouritePokemons)..add(event.pokemon);
+    List<String> users = List.from(state.uId)..add(event.uId);
     emit(
       FavouritesState(
-        favouritePokemons: List.from(state.favouritePokemons)..add(event.pokemon)
+        favouritePokemons: favs,
+        uId: users
       )
     );
   }
