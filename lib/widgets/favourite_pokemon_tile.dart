@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:pokedoke/constants/colors.dart';
 import 'package:pokedoke/models/pokemons.dart';
 
 class FavouritePokemonTile extends StatelessWidget {
@@ -15,7 +16,7 @@ class FavouritePokemonTile extends StatelessWidget {
             children: [
               CachedNetworkImage(
                 imageUrl: pokemon.img!,
-                height: 100,
+                height: 70,
                 fit: BoxFit.fitHeight,
               ),
               const SizedBox(width: 10,),
@@ -24,7 +25,8 @@ class FavouritePokemonTile extends StatelessWidget {
                 Text(pokemon.type![0], style: const TextStyle(fontSize: 16),)
               ],)
             ],
-          )
+          ),
+          Divider(color: secondaryColor,)
         ],
       ),
     );

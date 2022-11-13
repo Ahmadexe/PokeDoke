@@ -108,10 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text(
                 "PokeDoke",
                 style: TextStyle(
-                    color: secondaryColor,
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700),
+                  color: secondaryColor
+                ),
               ),
+              centerTitle: true,
               elevation: 0,
             ),
             body: _loading

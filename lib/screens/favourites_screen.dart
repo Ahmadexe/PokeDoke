@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedoke/blocs/favourite%20pokemons/bloc/favourites_bloc.dart';
+import 'package:pokedoke/constants/colors.dart';
 import 'package:pokedoke/widgets/favourite_pokemon_tile.dart';
 
 class FavouritePokemonsScreen extends StatefulWidget {
@@ -18,8 +19,17 @@ class _FavouritePokemonsScreenState extends State<FavouritePokemonsScreen> {
       builder: (context, state) {
         var favPokemons = state.favouritePokemons;
         return Scaffold(
+          backgroundColor: scaffoldBackgroundColor,
+
           appBar: AppBar(
-            title: const Text("Favourite Pokemons"),
+            iconTheme: IconThemeData(
+                size: 25,
+                color: secondaryColor,
+              ),
+            backgroundColor: scaffoldBackgroundColor,
+            elevation: 0,
+            title: Text("Favourite Pokemons", style: TextStyle(color: secondaryColor),),
+            centerTitle: true,
           ),
           body: Padding(
             padding: EdgeInsets.all(18),
