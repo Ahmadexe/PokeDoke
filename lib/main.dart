@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(lazy: false, create: (context) => FavouritesBloc()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
             if (state.user.isLoggedIn) {

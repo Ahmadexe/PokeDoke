@@ -74,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListTile(
                     tileColor: secondaryColor,
                     onTap: () {
+                      Navigator.of(context).pop();
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => FavouritePokemonsScreen())
                       );

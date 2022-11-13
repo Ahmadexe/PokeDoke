@@ -23,7 +23,9 @@ class FavouritePokemonTile extends StatelessWidget {
               Column(children: [
                 Text(pokemon.name!, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                 Text(pokemon.type![0], style: const TextStyle(fontSize: 16),)
-              ],)
+              ],),
+              Expanded(child: Container()),
+              IconButton(onPressed: (){}, icon: Icon(Icons.delete, color: secondaryColor,))
             ],
           ),
           Divider(color: secondaryColor,)
