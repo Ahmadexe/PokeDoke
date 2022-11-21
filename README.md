@@ -14,9 +14,10 @@ A Pokemon app made with flutter and firebase. The app uses an API to fetch the d
 - Flutter (Create cool frontend)
 - Firebase (An even cooler backend)
 - Bloc (Manage state using Blocs)
-- Hydrated Bloc (Preserve state in local storage.)
-- Awesome Snackbar 
-- Flutter From Builder
+- Hydrated Bloc (Preserve state in local storage)
+- Awesome Snackbar
+- Http (Fetch API using this package)
+- Flutter Form Builder
 - Form Builder Validators
 
 ## Tasks completed
