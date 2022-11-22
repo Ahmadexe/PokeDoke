@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedoke/blocs/favourite%20pokemons/bloc/favourites_bloc.dart';
 import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
-import 'package:pokedoke/constants/colors.dart';
+import 'package:pokedoke/static/colors.dart';
 import 'package:pokedoke/global/global_methods.dart';
 import 'package:pokedoke/widgets/favourite_pokemon_tile.dart';
 

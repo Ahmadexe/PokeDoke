@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedoke/api/pokemon_api_methods.dart';
 import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
-import 'package:pokedoke/constants/colors.dart';
+import 'package:pokedoke/static/colors.dart';
 import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/models/pokemons.dart';
 import 'package:pokedoke/screens/favourites_screen.dart';

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
-import 'package:pokedoke/constants/colors.dart';
+import 'package:pokedoke/static/colors.dart';
 import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/models/user_model.dart';
 import 'package:pokedoke/screens/signup_screen.dart';

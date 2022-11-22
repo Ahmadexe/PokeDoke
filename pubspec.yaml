@@ -50,6 +50,7 @@ dependencies:
   string_validator: ^0.3.0
   awesome_snackbar_content: ^0.1.0
   http: ^0.13.5
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:
