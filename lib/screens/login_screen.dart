@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
+import 'package:pokedoke/cubits/users_cubit/cubit/user_cubit.dart';
 import 'package:pokedoke/static/colors.dart';
 import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/models/user_model.dart';
@@ -37,12 +37,26 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Align(
                 alignment: Alignment.topLeft,
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                      color: secondaryColor,
-                      fontSize: 32,
-                      fontWeight: FontWeight.w700),
+                child: BlocBuilder<UserCubit, UserState>(
+                  builder: (context, state) {
+                    // return
+
+                    if (state is UserLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: scaffoldBackgroundColor,
+                        ),
+                      );
+                    } else {
+                      return Text(
+                        "Login",
+                        style: TextStyle(
+                            color: secondaryColor,
+                            fontSize: 32,
+                            fontWeight: FontWeight.w700),
+                      );
+                    }
+                  },
                 ),
               ),
               const SizedBox(
@@ -108,32 +122,35 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: ElevatedButton(
                               onPressed: () async {
                                 if (_loginFormKey.currentState!.validate()) {
-                                  print("Here");
-                                  context.read<UserBloc>().add(LoginUser(
-                                      context: context,
-                                      user: UserModel(
-                                        isLoggedIn: true,
-                                        isSignedUp: true,
-                                        userEmail: _loginFormKey.currentState!
-                                            .fields['emailField']!.value,
-                                        userPassword: _loginFormKey
-                                            .currentState!
-                                            .fields['passwordField']!
-                                            .value,
-                                        // userName: await getUserName(FirebaseAuth
-                                        //     .instance.currentUser!.uid),
-                                      )));
-
-                                  print("Here 2");
+                                  debugPrint("Here");
+                                  context.read<UserCubit>().loginUser(
+                                      _loginFormKey.currentState!
+                                          .fields['emailField']!.value,
+                                      _loginFormKey.currentState!
+                                          .fields['passwordField']!.value,
+                                      context);
+                                  debugPrint("Here 2");
                                 } else {}
                               },
                               style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
                                           secondaryColor)),
-                              child: const Text(
-                                "Login",
-                                style: TextStyle(fontSize: 16),
+                              child: BlocBuilder<UserCubit, UserState>(
+                                builder: (context, state) {
+                                  if (state is UserLoading) {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        color: scaffoldBackgroundColor,
+                                      ),
+                                    );
+                                  } else {
+                                    return Text(
+                                      "Login",
+                                      style: TextStyle(fontSize: 16),
+                                    );
+                                  }
+                                },
                               ))),
                     ],
                   )),

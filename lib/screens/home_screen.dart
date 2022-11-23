@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedoke/api/pokemon_api_methods.dart';
-import 'package:pokedoke/blocs/user%20bloc/bloc/user_bloc.dart';
+import 'package:pokedoke/cubits/users_cubit/cubit/user_cubit.dart';
 import 'package:pokedoke/static/colors.dart';
 import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/models/pokemons.dart';
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserBloc, UserState>(
+    return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         return Scaffold(
             backgroundColor: scaffoldBackgroundColor,
@@ -74,10 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListTile(
                     tileColor: secondaryColor,
                     onTap: () {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => FavouritePokemonsScreen())
-                      );
+                      // Navigator.of(context).pop();
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(builder: (_) => FavouritePokemonsScreen())
+                      // );
                     },
                     leading: Icon(
                       Icons.favorite,
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListTile(
                     tileColor: secondaryColor,
                     onTap: () {
-                      context.read<UserBloc>().add(LogoutUser());
+                      context.read<UserCubit>().logout();
                     },
                     leading: Icon(
                       Icons.logout,

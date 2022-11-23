@@ -20,6 +20,10 @@ class UserState extends Equatable {
     );
   }
 
+  String toJson() => json.encode(toMap());
+
+  factory UserState.fromJson(String source) => UserState.fromMap(json.decode(source) as Map<String, dynamic>);
+
   @override
   List<Object?> get props => [user];
 }
@@ -27,6 +31,12 @@ class UserState extends Equatable {
 @immutable
 class UserInitial extends UserState {
   const UserInitial({required super.user});
+
+  factory UserInitial.fromMap(Map<String, dynamic> map) {
+    return UserInitial(
+      user: UserModel.fromMap(map['user'] as Map<String, dynamic>),
+    );
+  }
 
   @override
   List<Object?> get props => throw UnimplementedError();
@@ -39,13 +49,31 @@ class UserLoading extends UserState {
 
 @immutable
 class UserLoggedIn extends UserState {
+
+  factory UserLoggedIn.fromMap(Map<String, dynamic> map) {
+    return UserLoggedIn(
+      user: UserModel.fromMap(map['user'] as Map<String, dynamic>),
+    );
+  }
   const UserLoggedIn({required super.user});
 }
 
 class UserSignedUp extends UserState {
+  factory UserSignedUp.fromMap(Map<String, dynamic> map) {
+    return UserSignedUp(
+      user: UserModel.fromMap(map['user'] as Map<String, dynamic>),
+    );
+  }
   const UserSignedUp({required super.user});
 }
 
 class UserDefaultState extends UserState {
+
+  factory UserDefaultState.fromMap(Map<String, dynamic> map) {
+    return UserDefaultState(
+      user: UserModel.fromMap(map['user'] as Map<String, dynamic>),
+    );
+  }
+
   const UserDefaultState({required super.user});
 }

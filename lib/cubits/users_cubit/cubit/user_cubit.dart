@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,16 +25,29 @@ class UserCubit extends HydratedCubit<UserState> {
                 userEmail: null,
                 userId: null,
                 userName: null,
-                userPassword: null))) {
-    void signUpUser() => _signUpUser;
-    void loginUser() => _loginUser;
+                userPassword: null)));
+  // void signUpUser(String email, String password, String userName,
+          // BuildContext context) =>
+      // _signUpUser(email, password, userName, context);
+  // void loginUser(String email, String password, BuildContext context) =>
+      // _loginUser(email, password, context);
+
+  // void logout() => _logout();
+
+
+  logout() async {
+    await UsersRepository.logout();
+    UserModel currentState = state.user;
+    currentState.isLoggedIn = false;
+    emit(UserDefaultState(user: currentState));
   }
 
-  _signUpUser(String email, String password, String userName,
+  signUpUser(String email, String password, String userName,
       BuildContext context) async {
     UserModel currentState = state.user;
     currentState.userEmail = email;
     currentState.userPassword = password;
+    currentState.userName = userName;
     emit(UserLoading(user: currentState));
     String response = await UsersRepository.signup(currentState);
     if (response == 'success') {
@@ -55,7 +71,7 @@ class UserCubit extends HydratedCubit<UserState> {
     }
   }
 
-  _loginUser(String email, String password, BuildContext context) async {
+  loginUser(String email, String password, BuildContext context) async {
     UserModel currentState = state.user;
     currentState.userEmail = email;
     currentState.userPassword = password;
@@ -94,4 +110,6 @@ class UserCubit extends HydratedCubit<UserState> {
   Map<String, dynamic>? toJson(UserState state) {
     return state.toMap();
   }
+
+  
 }

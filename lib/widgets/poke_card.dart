@@ -11,43 +11,42 @@ class PokeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => PokeDetailsScreen(
-                  pokemon: pokemon,
-                  color: pokemon.type![0] == "Grass"
-                      ? Colors.greenAccent
-                      : pokemon.type![0] == "Fire"
-                          ? Colors.redAccent
-                          : pokemon.type![0] == "Water"
-                              ? Colors.blue
-                              : pokemon.type![0] == "Poison"
-                                  ? Colors.deepPurpleAccent
-                                  : pokemon.type![0] == "Electric"
-                                      ? Colors.amber
-                                      : pokemon.type![0] == "Rock"
-                                          ? Colors.grey
-                                          : pokemon.type![0] == "Ground"
-                                              ? Colors.brown
-                                              : pokemon.type![0] == "Psychic"
-                                                  ? Colors.indigo
-                                                  : pokemon.type![0] ==
-                                                          "Fighting"
-                                                      ? Colors.orange
-                                                      : pokemon.type![0] ==
-                                                              "Bug"
-                                                          ? Colors
-                                                              .lightGreenAccent
-                                                          : pokemon.type![0] ==
-                                                                  "Ghost"
-                                                              ? Colors
-                                                                  .deepPurple
-                                                              : pokemon.type![
-                                                                          0] ==
-                                                                      "Normal"
-                                                                  ? Colors
-                                                                      .black26
-                                                                  : Colors.pink,
-                )));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (_) => PokeDetailsScreen(
+        //           pokemon: pokemon,
+        //           color: pokemon.type![0] == "Grass"
+        //               ? Colors.greenAccent
+        //               : pokemon.type![0] == "Fire"
+        //                   ? Colors.redAccent
+        //                   : pokemon.type![0] == "Water"
+        //                       ? Colors.blue
+        //                       : pokemon.type![0] == "Poison"
+        //                           ? Colors.deepPurpleAccent
+        //                           : pokemon.type![0] == "Electric"
+        //                               ? Colors.amber
+        //                               : pokemon.type![0] == "Rock"
+        //                                   ? Colors.grey
+        //                                   : pokemon.type![0] == "Ground"
+        //                                       ? Colors.brown
+        //                                       : pokemon.type![0] == "Psychic"
+        //                                           ? Colors.indigo
+        //                                           : pokemon.type![0] ==
+        //                                                   "Fighting"
+        //                                               ? Colors.orange
+        //                                               : pokemon.type![0] ==
+        //                                                       "Bug"
+        //                                                   ? Colors
+        //                                                       .lightGreenAccent
+        //                                                   : pokemon.type![0] ==
+        //                                                           "Ghost"
+        //                                                       ? Colors
+        //                                                           .deepPurple
+        //                                                       : pokemon.type![
+        //                                                                   0] ==
+        //                                                               "Normal"
+        //                                                           ? Colors
+        //                                                               .black26
+        //                                                           : Colors.pink,
       },
       child: Card(
         color: pokemon.type![0] == "Grass"
