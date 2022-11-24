@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pokedoke/blocs/favourite%20pokemons/bloc/favourites_bloc.dart';
 import 'package:pokedoke/cubits/fav_pokemons_cubit/cubit/fav_pokemons_cubit.dart';
 import 'package:pokedoke/cubits/pokemons_cubit/cubit/pokemons_cubit.dart';
 import 'package:pokedoke/cubits/users_cubit/cubit/user_cubit.dart';

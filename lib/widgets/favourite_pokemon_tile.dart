@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokedoke/blocs/favourite%20pokemons/bloc/favourites_bloc.dart';
 import 'package:pokedoke/static/colors.dart';
 import 'package:pokedoke/models/pokemons.dart';
 
@@ -28,7 +27,7 @@ class FavouritePokemonTile extends StatelessWidget {
               ],),
               Expanded(child: Container()),
               IconButton(onPressed: (){
-                context.read<FavouritesBloc>().add(DeleteFavourites(pokemon: pokemon));
+                // TODO 
               }, icon: Icon(Icons.delete, color: secondaryColor,))
             ],
           ),
