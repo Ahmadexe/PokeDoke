@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedoke/api/pokemon_api_methods.dart';
+import 'package:pokedoke/cubits/pokemons_cubit/cubit/pokemons_cubit.dart';
 import 'package:pokedoke/cubits/users_cubit/cubit/user_cubit.dart';
 import 'package:pokedoke/static/colors.dart';
 import 'package:pokedoke/database/cloud/firestore_methods.dart';
@@ -20,28 +21,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Pokemons pokemons;
-  bool _loading = false;
+  // late Pokemons pokemons;
+  // bool _loading = false;
   @override
   void initState() {
-    getData();
+    BlocProvider.of<PokemonsCubit>(context).loadPokemons();
     super.initState();
   }
 
-  getData() async {
-    setState(() {
-      _loading = true;
-    });
-    pokemons = await ApiService().getPokemons();
-    setState(() {
-      _loading = false;
-    });
-  }
+  // getData() async {
+  //   setState(() {
+  //     _loading = true;
+  //   });
+  //   pokemons = await ApiService().getPokemons();
+  //   setState(() {
+  //     _loading = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserCubit, UserState>(
-      builder: (context, state) {
         return Scaffold(
             backgroundColor: scaffoldBackgroundColor,
             drawer: Drawer(
@@ -55,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     radius: 30,
                     backgroundColor: scaffoldBackgroundColor,
                     child: Text(
-                      state.user.userName![0],
+                      // state.user.userName![0],
+                      context.read<UserCubit>().state.user.userName![0],
                       style: TextStyle(
                           color: secondaryColor,
                           fontWeight: FontWeight.bold,
@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 16,
                   ),
                   Text(
-                    state.user.userName!,
+                    context.read<UserCubit>().state.user.userName!,
                     style:
                         TextStyle(fontSize: 16, color: scaffoldBackgroundColor),
                   ),
@@ -115,13 +115,17 @@ class _HomeScreenState extends State<HomeScreen> {
               centerTitle: true,
               elevation: 0,
             ),
-            body: _loading
-                ? Center(
-                    child: CircularProgressIndicator(
-                      color: secondaryColor,
-                    ),
-                  )
-                : Padding(
+
+
+            body: BlocBuilder<PokemonsCubit, PokemonsState>(
+              builder: (context, state) {
+                if (state is PokemonsLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(color: scaffoldBackgroundColor,),
+                  );
+                }
+                else {
+                  return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -176,20 +180,102 @@ class _HomeScreenState extends State<HomeScreen> {
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2, childAspectRatio: 1.4),
-                              itemCount: pokemons.pokemon!.length,
+                              itemCount: state.pokemons.length,
                               shrinkWrap: true,
-                              // scrollDirection: Axis.vertical,
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return PokeCard(
-                                  pokemon: pokemons.pokemon![index],
+                                  pokemon: state.pokemons[index],
                                 );
                               }),
                         ],
                       ),
                     ),
-                  ));
-      },
+                  );
+                }
+              },
+            ),    
     );
   }
 }
+
+
+
+
+
+
+
+// body: _loading
+//                 ? Center(
+//                     child: CircularProgressIndicator(
+//                       color: secondaryColor,
+//                     ),
+//                   )
+//                 : Padding(
+//                     padding: const EdgeInsets.all(8.0),
+//                     child: SingleChildScrollView(
+//                       scrollDirection: Axis.vertical,
+//                       child: Column(
+//                         children: [
+//                           const SizedBox(height: 30,),
+//                           SingleChildScrollView(
+//                             scrollDirection: Axis.horizontal,
+//                             child: Wrap(
+//                               spacing: 6,
+//                               children: [
+//                                 CategoryCard(
+//                                   image: "pikachu.jpg",
+//                                   title: "Electric",
+//                                   onPressed: (){},
+//                                 ),
+//                                 CategoryCard(
+//                                   image: "charizard.jpg",
+//                                   title: "Fire",
+//                                   onPressed: (){},
+//                                 ),
+//                                 CategoryCard(
+//                                   image: "mewtwo.jpg",
+//                                   title: "Psychic",
+//                                   onPressed: (){},
+//                                 ),
+//                                 CategoryCard(
+//                                   image: "water.jpg",
+//                                   title: "Water",
+//                                   onPressed: (){},
+//                                 ),
+//                                 CategoryCard(
+//                                   image: "poison.jpg",
+//                                   title: "Poison",
+//                                   onPressed: (){},
+//                                 ),
+//                                 CategoryCard(
+//                                   image: "rockPokemon.jpg",
+//                                   title: "Rock",
+//                                   onPressed: (){},
+//                                 ),
+//                                 CategoryCard(
+//                                   image: "ghost.jpg",
+//                                   title: "Ghost",
+//                                   onPressed: (){},
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                           const SizedBox(height: 30,),
+//                           GridView.builder(
+//                               gridDelegate:
+//                                   const SliverGridDelegateWithFixedCrossAxisCount(
+//                                       crossAxisCount: 2, childAspectRatio: 1.4),
+//                               itemCount: pokemons.pokemon!.length,
+//                               shrinkWrap: true,
+//                               // scrollDirection: Axis.vertical,
+//                               physics: NeverScrollableScrollPhysics(),
+//                               itemBuilder: (context, index) {
+//                                 return PokeCard(
+//                                   pokemon: pokemons.pokemon![index],
+//                                 );
+//                               }),
+//                         ],
+//                       ),
+//                     ),
+//                   ));

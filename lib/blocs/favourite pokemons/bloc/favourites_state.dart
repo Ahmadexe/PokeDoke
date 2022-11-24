@@ -8,17 +8,6 @@ class FavouritesState {
       {this.favouritePokemons = const <Pokemon>[],
       this.uId = const <String>[]});
 
-  // Map<String, dynamic> toMap() {
-  //   return <String, dynamic>{
-  //     'favouritePokemons': favouritePokemons.map((x) => x.toJson()).toList(),
-  //   };
-  // }
-
-  // factory FavouritesState.fromMap(Map<String, dynamic> map) {
-  //   return FavouritesState(
-  //     favouritePokemons: List<Pokemon>.from(map['favouritePokemons']?.map((x) => Pokemon.fromJson(x))),
-  //   );
-  // }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

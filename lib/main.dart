@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pokedoke/blocs/favourite%20pokemons/bloc/favourites_bloc.dart';
+import 'package:pokedoke/cubits/pokemons_cubit/cubit/pokemons_cubit.dart';
 import 'package:pokedoke/cubits/users_cubit/cubit/user_cubit.dart';
 import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/firebase_options.dart';
@@ -30,12 +31,13 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => UserCubit()), 
         BlocProvider(lazy: false, create: (context) => FavouritesBloc()),
+        BlocProvider(lazy: false, create: (context) => PokemonsCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
-            if (state is UserLoggedIn) {
+            if (state.user.isLoggedIn) {
               return HomeScreen();
             } else {
               return LoginScreen();
