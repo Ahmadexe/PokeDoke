@@ -13,9 +13,6 @@ import 'package:pokedoke/models/user_model.dart';
 import 'package:pokedoke/widgets/snackbar.dart';
 
 part 'user_state.dart';
-
-const mounted = true;
-
 class UserCubit extends HydratedCubit<UserState> {
   UserCubit()
       : super(UserInitial(
@@ -26,14 +23,6 @@ class UserCubit extends HydratedCubit<UserState> {
                 userId: null,
                 userName: null,
                 userPassword: null)));
-  // void signUpUser(String email, String password, String userName,
-          // BuildContext context) =>
-      // _signUpUser(email, password, userName, context);
-  // void loginUser(String email, String password, BuildContext context) =>
-      // _loginUser(email, password, context);
-
-  // void logout() => _logout();
-
 
   logout() async {
     await UsersRepository.logout();
@@ -42,13 +31,12 @@ class UserCubit extends HydratedCubit<UserState> {
     emit(UserDefaultState(user: currentState));
   }
 
-  signUpUser(String email, String password, String userName,
-      BuildContext context) async {
+  signUpUser(String email, String password, String userName) async {
     UserModel currentState = state.user;
     currentState.userEmail = email;
     currentState.userPassword = password;
     currentState.userName = userName;
-    emit(UserLoading(user: currentState));
+    emit(UserSignupLoading(user: currentState));
     String response = await UsersRepository.signup(currentState);
     if (response == 'success') {
       String _id = FirebaseAuth.instance.currentUser!.uid;
@@ -56,26 +44,19 @@ class UserCubit extends HydratedCubit<UserState> {
       currentState.userName = userName;
       currentState.isSignedUp = true;
       currentState.isLoggedIn = false;
-      if (mounted) {
-        displaySnackbar(
-            context, 'success', "Thank you for registring $userName!");
-      }
       emit(UserSignedUp(user: currentState));
     } else {
       currentState.isSignedUp = false;
       currentState.isLoggedIn = false;
-      if (mounted) {
-        displaySnackbar(context, 'error', response);
-      }
-      emit(UserDefaultState(user: currentState));
+      emit(UserSignedupError(user: currentState));
     }
   }
 
-  loginUser(String email, String password, BuildContext context) async {
+  loginUser(String email, String password) async {
     UserModel currentState = state.user;
     currentState.userEmail = email;
     currentState.userPassword = password;
-    emit(UserLoading(user: currentState));
+    emit(UserLoginLoading(user: currentState));
     String response = await UsersRepository.login(currentState);
     if (response == 'success') {
       String _id = FirebaseAuth.instance.currentUser!.uid;
@@ -88,16 +69,7 @@ class UserCubit extends HydratedCubit<UserState> {
       currentState.userPassword = password;
       emit(UserLoggedIn(user: currentState));
     } else {
-      currentState.isLoggedIn = false;
-      if (response == "Wrong password") {
-        currentState.isSignedUp = true;
-      } else {
-        currentState.isSignedUp = false;
-      }
-      if (mounted) {
-        displaySnackbar(context, 'error', response);
-      }
-      emit(UserDefaultState(user: currentState));
+      emit(UserLoginError(user: currentState));
     }
   }
 
@@ -109,7 +81,5 @@ class UserCubit extends HydratedCubit<UserState> {
   @override
   Map<String, dynamic>? toJson(UserState state) {
     return state.toMap();
-  }
-
-  
+  }  
 }

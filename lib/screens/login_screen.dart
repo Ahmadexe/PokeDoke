@@ -1,15 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pokedoke/cubits/users_cubit/cubit/user_cubit.dart';
 import 'package:pokedoke/static/colors.dart';
-import 'package:pokedoke/database/cloud/firestore_methods.dart';
-import 'package:pokedoke/models/user_model.dart';
 import 'package:pokedoke/screens/signup_screen.dart';
-import 'package:pokedoke/services/authentications.dart';
+import 'package:pokedoke/widgets/snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -39,9 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.topLeft,
                 child: BlocBuilder<UserCubit, UserState>(
                   builder: (context, state) {
-                    // return
-
-                    if (state is UserLoading) {
+                    if (state is UserLoginLoading) {
                       return Center(
                         child: CircularProgressIndicator(
                           color: scaffoldBackgroundColor,
@@ -117,41 +111,46 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 30,
                       ),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: ElevatedButton(
-                              onPressed: () async {
-                                if (_loginFormKey.currentState!.validate()) {
-                                  debugPrint("Here");
-                                  context.read<UserCubit>().loginUser(
-                                      _loginFormKey.currentState!
-                                          .fields['emailField']!.value,
-                                      _loginFormKey.currentState!
-                                          .fields['passwordField']!.value,
-                                      context);
-                                  debugPrint("Here 2");
-                                } else {}
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          secondaryColor)),
-                              child: BlocBuilder<UserCubit, UserState>(
-                                builder: (context, state) {
-                                  if (state is UserLoading) {
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        color: scaffoldBackgroundColor,
-                                      ),
-                                    );
-                                  } else {
-                                    return Text(
-                                      "Login",
-                                      style: TextStyle(fontSize: 16),
-                                    );
+                      BlocListener<UserCubit, UserState>(
+                        listener: (context, state) {
+                          if (state is UserLoginError) {
+                            snackMessage('error',
+                                "An error occured.\nEnter creds again.");
+                          }
+                        },
+                        child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                                onPressed: () async {
+                                  if (_loginFormKey.currentState!.validate()) {
+                                    context.read<UserCubit>().loginUser(
+                                        _loginFormKey.currentState!
+                                            .fields['emailField']!.value,
+                                        _loginFormKey.currentState!
+                                            .fields['passwordField']!.value);
                                   }
                                 },
-                              ))),
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            secondaryColor)),
+                                child: BlocBuilder<UserCubit, UserState>(
+                                  builder: (context, state) {
+                                    if (state is UserLoginLoading) {
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          color: scaffoldBackgroundColor,
+                                        ),
+                                      );
+                                    } else {
+                                      return const Text(
+                                        "Login",
+                                        style: TextStyle(fontSize: 16),
+                                      );
+                                    }
+                                  },
+                                ))),
+                      ),
                     ],
                   )),
               SizedBox(
@@ -179,5 +178,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  snackMessage(String type, String message) {
+    displaySnackbar(context, type, message);
   }
 }

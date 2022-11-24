@@ -31,7 +31,6 @@ class UserState extends Equatable {
 @immutable
 class UserInitial extends UserState {
   const UserInitial({required super.user});
-
   factory UserInitial.fromMap(Map<String, dynamic> map) {
     return UserInitial(
       user: UserModel.fromMap(map['user'] as Map<String, dynamic>),
@@ -42,14 +41,12 @@ class UserInitial extends UserState {
   List<Object?> get props => throw UnimplementedError();
 }
 
-@immutable
-class UserLoading extends UserState {
-  const UserLoading({required super.user});
+
+class UserLoginLoading extends UserState {
+  const UserLoginLoading({required super.user});
 }
 
-@immutable
 class UserLoggedIn extends UserState {
-
   factory UserLoggedIn.fromMap(Map<String, dynamic> map) {
     return UserLoggedIn(
       user: UserModel.fromMap(map['user'] as Map<String, dynamic>),
@@ -58,6 +55,16 @@ class UserLoggedIn extends UserState {
   const UserLoggedIn({required super.user});
 }
 
+class UserLoginError extends UserState {
+  UserLoginError({required super.user});
+}
+
+@immutable
+class UserSignupLoading extends UserState {
+  const UserSignupLoading({required super.user});
+}
+
+@immutable
 class UserSignedUp extends UserState {
   factory UserSignedUp.fromMap(Map<String, dynamic> map) {
     return UserSignedUp(
@@ -67,8 +74,11 @@ class UserSignedUp extends UserState {
   const UserSignedUp({required super.user});
 }
 
-class UserDefaultState extends UserState {
+class UserSignedupError extends UserState{
+  UserSignedupError({required super.user});
+}
 
+class UserDefaultState extends UserState {
   factory UserDefaultState.fromMap(Map<String, dynamic> map) {
     return UserDefaultState(
       user: UserModel.fromMap(map['user'] as Map<String, dynamic>),

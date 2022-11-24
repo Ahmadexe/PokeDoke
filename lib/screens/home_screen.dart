@@ -14,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
     _loadData();
@@ -58,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               tileColor: secondaryColor,
               onTap: () {
+                // TODO: Implement the page with updated arch
                 // Navigator.of(context).pop();
                 // Navigator.of(context).push(
                 //   MaterialPageRoute(builder: (_) => FavouritePokemonsScreen())
@@ -103,11 +103,13 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: 
-      context.read<PokemonsCubit>().state is PokemonsLoading?
-      Center(child: CircularProgressIndicator(color: secondaryColor,),)
-      :
-      BlocBuilder<PokemonsCubit, PokemonsState>(
+      body: context.read<PokemonsCubit>().state is PokemonsLoading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: secondaryColor,
+              ),
+            )
+          : BlocBuilder<PokemonsCubit, PokemonsState>(
               builder: (context, state) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),

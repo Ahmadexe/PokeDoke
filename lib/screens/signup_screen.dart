@@ -7,6 +7,7 @@ import 'package:pokedoke/cubits/users_cubit/cubit/user_cubit.dart';
 import 'package:pokedoke/static/colors.dart';
 import 'package:pokedoke/models/user_model.dart';
 import 'package:pokedoke/screens/login_screen.dart';
+import 'package:pokedoke/widgets/snackbar.dart';
 import 'package:string_validator/string_validator.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -134,29 +135,36 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: 30,
                         ),
                         BlocListener<UserCubit, UserState>(
-                          listener: (context, state) {},
+                          listener: (context, state) {
+                            if (context.read<UserCubit>().state
+                                is UserSignedUp) {
+                              snackMessage("Success",
+                                  "Thank you for registering! ${context.read<UserCubit>().state.user.userName}");
+                            } else if (context.read<UserCubit>().state
+                                is UserSignedupError) {
+                              snackMessage("error", "An error occured");
+                            }
+                          },
                           child: SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: ElevatedButton(
-
                                   onPressed: () async {
- 
-                                    debugPrint(_signupFormKey.currentState!
-                                                  .fields['nameField']!.value,);
+                                    debugPrint(
+                                      _signupFormKey.currentState!
+                                          .fields['nameField']!.value,
+                                    );
 
                                     if (_signupFormKey.currentState!
                                         .validate()) {
                                       BlocProvider.of<UserCubit>(context)
                                           .signUpUser(
-                                              _signupFormKey.currentState!
-                                                  .fields['emailField']!.value,
-                                              _signupFormKey
-                                                  .currentState!
-                                                  .fields['passwordField']!
-                                                  .value,
-                                              _signupFormKey.currentState!
-                                                  .fields['nameField']!.value,
-                                              context);
+                                        _signupFormKey.currentState!
+                                            .fields['emailField']!.value,
+                                        _signupFormKey.currentState!
+                                            .fields['passwordField']!.value,
+                                        _signupFormKey.currentState!
+                                            .fields['nameField']!.value,
+                                      );
                                     }
                                   },
                                   style: ButtonStyle(
@@ -165,18 +173,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                               secondaryColor)),
                                   child: BlocBuilder<UserCubit, UserState>(
                                     builder: (context, state) {
-                                      if (state is UserLoading) {
+                                      if (state is UserSignupLoading) {
                                         return Center(
-                                          child: CircularProgressIndicator(
-                                            color: scaffoldBackgroundColor,
-                                          )
-                                        );
-                                      }
-                                      else {
+                                            child: CircularProgressIndicator(
+                                          color: scaffoldBackgroundColor,
+                                        ));
+                                      } else {
                                         return const Text(
-                                        "Sign up!",
-                                        style: TextStyle(fontSize: 16),
-                                      );
+                                          "Sign up!",
+                                          style: TextStyle(fontSize: 16),
+                                        );
                                       }
                                     },
                                   ))),
@@ -207,5 +213,9 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
         ));
+  }
+
+  snackMessage(String type, String message) {
+    displaySnackbar(context, type, message);
   }
 }
