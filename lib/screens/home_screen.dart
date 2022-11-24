@@ -14,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isLoading = false;
 
   @override
   void initState() {
@@ -23,13 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _loadData() async {
-    setState(() {
-      isLoading = true;
-    });
     await BlocProvider.of<PokemonsCubit>(context).loadPokemons();
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
@@ -47,7 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
               radius: 30,
               backgroundColor: scaffoldBackgroundColor,
               child: Text(
-                // state.user.userName![0],
                 context.read<UserCubit>().state.user.userName![0],
                 style: TextStyle(
                     color: secondaryColor,
@@ -111,13 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: isLoading
-          ? Center(
-              child: CircularProgressIndicator(
-                color: secondaryColor,
-              ),
-            )
-          : BlocBuilder<PokemonsCubit, PokemonsState>(
+      body: 
+      context.read<PokemonsCubit>().state is PokemonsLoading?
+      Center(child: CircularProgressIndicator(color: secondaryColor,),)
+      :
+      BlocBuilder<PokemonsCubit, PokemonsState>(
               builder: (context, state) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
