@@ -14,6 +14,7 @@ class FavPokemonsCubit extends HydratedCubit<FavPokemonsState> {
     final state = this.state;
     List<Pokemon>? favs = List.from(state.pokemons!)..add(pokemon);
     List<String>? users = List.from(state.uId!)..add(userId);
+    emit(FavPokemonsSuccesfullyAdded(pokemons: favs, uId: users));
     emit(FavPokemonsState(pokemons: favs, uId: users));
   }
 
@@ -28,6 +29,7 @@ class FavPokemonsCubit extends HydratedCubit<FavPokemonsState> {
         break;
       }
     }
+    emit(FavPokemonsSuccesfullyDeleted(pokemons: favourites, uId: users));
     emit(FavPokemonsState(pokemons: favourites, uId: users));
   }
 

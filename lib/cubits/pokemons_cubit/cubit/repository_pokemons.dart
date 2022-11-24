@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:pokedoke/cubits/pokemons_cubit/cubit/data_provider_pokemons.dart';
 import 'package:pokedoke/models/pokemons.dart';
 

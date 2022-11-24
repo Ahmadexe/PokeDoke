@@ -6,7 +6,7 @@ class UsersRepository {
 
   static Future<String> signup(UserModel user) => UsersDataProvider.provideSignup(user);
 
-  static Future<String> getUsername(String userId) => UsersDataProvider.getUsername(userId);
+  static Future<String> getUsername(String userId) async => await UsersDataProvider.getUsername(userId);
 
   static logout() async {
     await UsersDataProvider.provideLogout();

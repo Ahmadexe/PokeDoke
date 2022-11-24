@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 part of 'fav_pokemons_cubit.dart';
 
 class FavPokemonsState extends Equatable {
@@ -26,4 +27,12 @@ class FavPokemonsState extends Equatable {
             map['favouritePokemons']?.map((x) => Pokemon.fromJson(x))),
         uId: List<String>.from(map['uId'] as List<String>));
   }
+}
+
+class FavPokemonsSuccesfullyAdded extends FavPokemonsState {
+  const FavPokemonsSuccesfullyAdded({required super.pokemons, required super.uId});
+}
+
+class FavPokemonsSuccesfullyDeleted extends FavPokemonsState {
+  const FavPokemonsSuccesfullyDeleted({required super.pokemons, required super.uId});
 }
