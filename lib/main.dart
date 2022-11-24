@@ -7,7 +7,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pokedoke/blocs/favourite%20pokemons/bloc/favourites_bloc.dart';
 import 'package:pokedoke/cubits/pokemons_cubit/cubit/pokemons_cubit.dart';
 import 'package:pokedoke/cubits/users_cubit/cubit/user_cubit.dart';
-import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/firebase_options.dart';
 import 'package:pokedoke/screens/home_screen.dart';
 import 'package:pokedoke/screens/login_screen.dart';
