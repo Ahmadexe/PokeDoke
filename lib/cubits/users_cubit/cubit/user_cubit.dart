@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pokedoke/cubits/users_cubit/cubit/repository.dart';
-import 'package:pokedoke/database/cloud/firestore_methods.dart';
 import 'package:pokedoke/models/user_model.dart';
 import 'package:pokedoke/widgets/snackbar.dart';
 

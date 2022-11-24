@@ -9,11 +9,14 @@ class PokemonsCubit extends Cubit<PokemonsState> {
   PokemonsCubit() : super(const PokemonsInitial(pokemons: []));
 
   loadPokemons() async {
-    var currentState = state.pokemons;
-    emit(PokemonsLoading(pokemons: currentState));
-    Pokemons pokemons = await PokemonsRepository.getPokemons();
-    currentState = pokemons.pokemon!;
-    emit(PokemonsLoaded(pokemons: currentState));
+    try {
+      var currentState = state.pokemons;
+      emit(PokemonsLoading(pokemons: currentState));
+      Pokemons pokemons = await PokemonsRepository.getPokemons();
+      currentState = pokemons.pokemon!;
+      emit(PokemonsLoaded(pokemons: currentState));
+    } catch (e) {
+      emit(const PokemonsError(pokemons: []));
+    }
   }
-
 }

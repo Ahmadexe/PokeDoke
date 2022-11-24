@@ -8,7 +8,6 @@ class FavouritesState {
       {this.favouritePokemons = const <Pokemon>[],
       this.uId = const <String>[]});
 
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'favouritePokemons': favouritePokemons.map((x) => x.toJson()).toList(),

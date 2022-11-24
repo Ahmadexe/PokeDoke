@@ -50,10 +50,6 @@ class UsersDataProvider {
     return msg;
   }
 
-  static provideLogout() async {
-    await FirebaseAuth.instance.signOut();
-  }
-
   static getUsername(String documentId) async {
     String name = "Initial";
     await FirebaseFirestore.instance
@@ -66,5 +62,9 @@ class UsersDataProvider {
       });
     });
     return name;
+  }
+
+  static provideLogout() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

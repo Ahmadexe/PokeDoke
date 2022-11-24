@@ -22,3 +22,7 @@ class PokemonsInitial extends PokemonsState {
 class PokemonsLoaded extends PokemonsState {
   const PokemonsLoaded({required super.pokemons});
 }
+
+class PokemonsError extends PokemonsState {
+  const PokemonsError({required super.pokemons});
+}

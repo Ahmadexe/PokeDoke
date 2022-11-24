@@ -1,10 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 part of 'fav_pokemons_cubit.dart';
 
 class FavPokemonsState extends Equatable {
-  final List<Pokemon> pokemons;
-  final List<String> uId;
+  final List<Pokemon>? pokemons;
+  final List<String>? uId;
 
   const FavPokemonsState({
     required this.pokemons,
@@ -16,7 +15,7 @@ class FavPokemonsState extends Equatable {
 
  Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'favouritePokemons': pokemons.map((x) => x.toJson()).toList(),
+      'favouritePokemons': pokemons!.map((x) => x.toJson()).toList(),
       'uId': uId,
     };
   }

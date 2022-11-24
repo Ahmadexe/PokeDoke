@@ -10,15 +10,34 @@ part 'fav_pokemons_state.dart';
 class FavPokemonsCubit extends HydratedCubit<FavPokemonsState> {
   FavPokemonsCubit() : super(const FavPokemonsState(pokemons: [], uId: []));
   
+  addPokemons(Pokemon pokemon, String userId) {
+    final state = this.state;
+    List<Pokemon>? favs = List.from(state.pokemons!)..add(pokemon);
+    List<String>? users = List.from(state.uId!)..add(userId);
+    emit(FavPokemonsState(pokemons: favs, uId: users));
+  }
+
+  deletePokemons(Pokemon pokemon) {
+    final state = this.state;
+    var favourites = state.pokemons!;
+    var users = state.uId!;
+    for (int i = 0; i < favourites.length; i++) {
+      if (favourites[i].isEqual(pokemon)) {
+        favourites.removeAt(i);
+        users.removeAt(i);
+        break;
+      }
+    }
+    emit(FavPokemonsState(pokemons: favourites, uId: users));
+  }
+
   @override
   FavPokemonsState? fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
+    return FavPokemonsState.fromMap(json);
   }
   
   @override
   Map<String, dynamic>? toJson(FavPokemonsState state) {
-    // TODO: implement toJson
-    throw UnimplementedError();
+    return state.toMap();
   }
 }
