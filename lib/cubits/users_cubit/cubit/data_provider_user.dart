@@ -6,14 +6,9 @@ import 'package:pokedoke/models/user_model.dart';
 class UsersDataProvider {
   static Future<String> provideLogin(UserModel user) async {
     String msg = 'An error occured';
-    debugPrint("Here1");
     try {
-    debugPrint("Here2");
-
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: user.userEmail!, password: user.userPassword!);
-    debugPrint("Here3");
-      
       return 'success';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

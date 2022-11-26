@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:pokedoke/models/pokemon.dart';
 import 'package:pokedoke/models/pokemons.dart';
 
 part 'fav_pokemons_state.dart';

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:pokedoke/models/pokemons.dart';
+import 'package:pokedoke/models/pokemon.dart';
 import 'package:pokedoke/screens/poke_details_screen.dart';
 
 class PokeCard extends StatelessWidget {

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedoke/cubits/fav_pokemons_cubit/cubit/fav_pokemons_cubit.dart';
 import 'package:pokedoke/cubits/users_cubit/cubit/user_cubit.dart';
+import 'package:pokedoke/models/pokemon.dart';
 import 'package:pokedoke/static/colors.dart';
-import 'package:pokedoke/models/pokemons.dart';
 import 'package:pokedoke/widgets/snackbar.dart';
 
 class PokeDetailsScreen extends StatefulWidget {

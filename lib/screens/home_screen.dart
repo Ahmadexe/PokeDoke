@@ -17,174 +17,184 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    _loadData();
+    BlocProvider.of<PokemonsCubit>(context).loadPokemons();
     super.initState();
-  }
-
-  _loadData() async {
-    await BlocProvider.of<PokemonsCubit>(context).loadPokemons();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: scaffoldBackgroundColor,
+      drawer: Drawer(
+        backgroundColor: secondaryColor,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 80,
+            ),
+            CircleAvatar(
+              radius: 30,
+              backgroundColor: scaffoldBackgroundColor,
+              child: Text(
+                context.read<UserCubit>().state.user.userName![0],
+                style: TextStyle(
+                    color: secondaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Text(
+              context.read<UserCubit>().state.user.userName!,
+              style: TextStyle(fontSize: 16, color: scaffoldBackgroundColor),
+            ),
+            ListTile(
+              tileColor: secondaryColor,
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => const FavouritePokemonsScreen()));
+              },
+              leading: Icon(
+                Icons.favorite,
+                color: scaffoldBackgroundColor,
+              ),
+              title: Text(
+                "View Favourites",
+                style: TextStyle(color: scaffoldBackgroundColor),
+              ),
+            ),
+            ListTile(
+              tileColor: secondaryColor,
+              onTap: () {
+                context.read<UserCubit>().logout();
+              },
+              leading: Icon(
+                Icons.logout,
+                color: scaffoldBackgroundColor,
+              ),
+              title: Text(
+                "Log out?",
+                style: TextStyle(color: scaffoldBackgroundColor),
+              ),
+            ),
+          ],
+        ),
+      ),
+      appBar: AppBar(
         backgroundColor: scaffoldBackgroundColor,
-        drawer: Drawer(
-          backgroundColor: secondaryColor,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 80,
-              ),
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: scaffoldBackgroundColor,
-                child: Text(
-                  context.read<UserCubit>().state.user.userName![0],
-                  style: TextStyle(
-                      color: secondaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                context.read<UserCubit>().state.user.userName!,
-                style: TextStyle(fontSize: 16, color: scaffoldBackgroundColor),
-              ),
-              ListTile(
-                tileColor: secondaryColor,
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => const FavouritePokemonsScreen()));
-                },
-                leading: Icon(
-                  Icons.favorite,
-                  color: scaffoldBackgroundColor,
-                ),
-                title: Text(
-                  "View Favourites",
-                  style: TextStyle(color: scaffoldBackgroundColor),
-                ),
-              ),
-              ListTile(
-                tileColor: secondaryColor,
-                onTap: () {
-                  context.read<UserCubit>().logout();
-                },
-                leading: Icon(
-                  Icons.logout,
-                  color: scaffoldBackgroundColor,
-                ),
-                title: Text(
-                  "Log out?",
-                  style: TextStyle(color: scaffoldBackgroundColor),
-                ),
-              ),
-            ],
-          ),
+        toolbarHeight: 100,
+        iconTheme: IconThemeData(
+          size: 25,
+          color: secondaryColor,
         ),
-        appBar: AppBar(
-          backgroundColor: scaffoldBackgroundColor,
-          toolbarHeight: 100,
-          iconTheme: IconThemeData(
-            size: 25,
-            color: secondaryColor,
-          ),
-          title: Text(
-            "PokeDoke",
-            style: TextStyle(color: secondaryColor),
-          ),
-          centerTitle: true,
-          elevation: 0,
+        title: Text(
+          "PokeDoke",
+          style: TextStyle(color: secondaryColor),
         ),
-        body: BlocBuilder<PokemonsCubit, PokemonsState>(
-          builder: (context, state) {
-            if (state is PokemonsLoaded) {
-              return BlocBuilder<PokemonsCubit, PokemonsState>(
-                builder: (context, state) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 30,
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: BlocBuilder<PokemonsCubit, PokemonsState>(
+        builder: (context, state) {
+          if (state is PokemonsLoaded) {
+            return BlocBuilder<PokemonsCubit, PokemonsState>(
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Wrap(
+                            spacing: 6,
+                            children: [
+                              CategoryCard(
+                                image: "pikachu.jpg",
+                                title: "Electric",
+                                onPressed: () {},
+                              ),
+                              CategoryCard(
+                                image: "charizard.jpg",
+                                title: "Fire",
+                                onPressed: () {},
+                              ),
+                              CategoryCard(
+                                image: "mewtwo.jpg",
+                                title: "Psychic",
+                                onPressed: () {},
+                              ),
+                              CategoryCard(
+                                image: "water.jpg",
+                                title: "Water",
+                                onPressed: () {},
+                              ),
+                              CategoryCard(
+                                image: "poison.jpg",
+                                title: "Poison",
+                                onPressed: () {},
+                              ),
+                              CategoryCard(
+                                image: "rockPokemon.jpg",
+                                title: "Rock",
+                                onPressed: () {},
+                              ),
+                              CategoryCard(
+                                image: "ghost.jpg",
+                                title: "Ghost",
+                                onPressed: () {},
+                              ),
+                            ],
                           ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Wrap(
-                              spacing: 6,
-                              children: [
-                                CategoryCard(
-                                  image: "pikachu.jpg",
-                                  title: "Electric",
-                                  onPressed: () {},
-                                ),
-                                CategoryCard(
-                                  image: "charizard.jpg",
-                                  title: "Fire",
-                                  onPressed: () {},
-                                ),
-                                CategoryCard(
-                                  image: "mewtwo.jpg",
-                                  title: "Psychic",
-                                  onPressed: () {},
-                                ),
-                                CategoryCard(
-                                  image: "water.jpg",
-                                  title: "Water",
-                                  onPressed: () {},
-                                ),
-                                CategoryCard(
-                                  image: "poison.jpg",
-                                  title: "Poison",
-                                  onPressed: () {},
-                                ),
-                                CategoryCard(
-                                  image: "rockPokemon.jpg",
-                                  title: "Rock",
-                                  onPressed: () {},
-                                ),
-                                CategoryCard(
-                                  image: "ghost.jpg",
-                                  title: "Ghost",
-                                  onPressed: () {},
-                                ),
-                              ],
-                            ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1.4,
                           ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2, childAspectRatio: 1.4),
-                              itemCount: state.pokemons.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return PokeCard(
-                                  pokemon: state.pokemons[index],
-                                );
-                              }),
-                        ],
-                      ),
+                          itemCount: state.pokemons.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return PokeCard(
+                              pokemon: state.pokemons[index],
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  );
-                },
-              );
-            } else {
-              return Center(
-                  child: CircularProgressIndicator(color: secondaryColor));
-            }
-          },
-        ));
+                  ),
+                );
+              },
+            );
+          } else if (state is PokemonsLoading){
+            return Center(
+              child: CircularProgressIndicator(color: secondaryColor),
+            );
+          } else if (state is PokemonsError){
+            return Center (child: Column(
+              children: const [
+                Text("Opps!", style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),),
+                Text("Looks like an error occured."),
+              ],
+            ),);
+          } else {
+            return Container();
+          }
+        },
+      ),
+    );
   }
 }

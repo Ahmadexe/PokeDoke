@@ -61,7 +61,6 @@ class UserCubit extends HydratedCubit<UserState> {
     if (response == 'success') {
       String _id = FirebaseAuth.instance.currentUser!.uid;
       String _name = await UsersRepository.getUsername(_id);
-      debugPrint("Check cubit 1");
       currentState.isSignedUp = true;
       currentState.isLoggedIn = true;
       currentState.userId = _id;

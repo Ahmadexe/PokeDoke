@@ -1,3 +1,4 @@
+import 'package:pokedoke/models/pokemon.dart';
 import 'package:pokedoke/models/pokemons.dart';
 
 List<Pokemon> getFilteredFavourites(List<Pokemon> allPokemons, List<String> allUsers,String userId){
