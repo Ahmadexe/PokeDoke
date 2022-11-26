@@ -32,9 +32,6 @@ class Pokemon extends HiveObject{
   @HiveField(13)
   List<String>? weaknesses;
   @HiveField(14)
-  List<NextEvolution>? nextEvolution;
-  @HiveField(15)
-  List<PrevEvolution>? prevEvolution;
 
   Pokemon(
       {this.id,
@@ -49,9 +46,7 @@ class Pokemon extends HiveObject{
       this.spawnChance,
       this.avgSpawns,
       this.spawnTime,
-      this.weaknesses,
-      this.nextEvolution,
-      this.prevEvolution});
+      this.weaknesses,});
 
   Pokemon.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -67,18 +62,6 @@ class Pokemon extends HiveObject{
     avgSpawns = json['avg_spawns'];
     spawnTime = json['spawn_time'];
     weaknesses = json['weaknesses'].cast<String>();
-    if (json['next_evolution'] != null) {
-      nextEvolution = <NextEvolution>[];
-      json['next_evolution'].forEach((v) {
-        nextEvolution!.add(NextEvolution.fromJson(v));
-      });
-    }
-    if (json['prev_evolution'] != null) {
-      prevEvolution = <PrevEvolution>[];
-      json['prev_evolution'].forEach((v) {
-        prevEvolution!.add(PrevEvolution.fromJson(v));
-      });
-    }
   }
 
   Map<String, dynamic> toJson() {
@@ -96,20 +79,12 @@ class Pokemon extends HiveObject{
     data['avg_spawns'] = this.avgSpawns;
     data['spawn_time'] = this.spawnTime;
     data['weaknesses'] = this.weaknesses;
-    if (this.nextEvolution != null) {
-      data['next_evolution'] =
-          this.nextEvolution!.map((v) => v.toJson()).toList();
-    }
-    if (this.prevEvolution != null) {
-      data['prev_evolution'] =
-          this.prevEvolution!.map((v) => v.toJson()).toList();
-    }
     return data;
   }
 
   @override
   String toString() {
-    return 'Pokemon(id: $id, num: $num, name: $name, img: $img, type: $type, height: $height, weight: $weight, candy: $candy, egg: $egg, spawnChance: $spawnChance, avgSpawns: $avgSpawns, spawnTime: $spawnTime, weaknesses: $weaknesses, nextEvolution: $nextEvolution, prevEvolution: $prevEvolution)';
+    return 'Pokemon(id: $id, num: $num, name: $name, img: $img, type: $type, height: $height, weight: $weight, candy: $candy, egg: $egg, spawnChance: $spawnChance, avgSpawns: $avgSpawns, spawnTime: $spawnTime, weaknesses: $weaknesses)';
   }
 
   bool isEqual(Pokemon other) {

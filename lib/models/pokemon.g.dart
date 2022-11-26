@@ -30,15 +30,13 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
       avgSpawns: fields[11] as dynamic,
       spawnTime: fields[12] as String?,
       weaknesses: (fields[13] as List?)?.cast<String>(),
-      nextEvolution: (fields[14] as List?)?.cast<NextEvolution>(),
-      prevEvolution: (fields[15] as List?)?.cast<PrevEvolution>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Pokemon obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -64,11 +62,7 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
       ..writeByte(12)
       ..write(obj.spawnTime)
       ..writeByte(13)
-      ..write(obj.weaknesses)
-      ..writeByte(14)
-      ..write(obj.nextEvolution)
-      ..writeByte(15)
-      ..write(obj.prevEvolution);
+      ..write(obj.weaknesses);
   }
 
   @override

@@ -17,16 +17,12 @@ class PokemonsRepository {
 
   static getPokemonsFromCache() {
     print("Coming from cache");
-    List? pokemons = cache.get('pokes');
+    Pokemons pokemons = cache.get('pokes');
 
     if (pokemons == null) {
       return null;
     }
-    List<Pokemons>? pokemon = List.generate(
-        pokemons.length,
-        (index) => pokemons[index],
-    );
-    return pokemon[0];
+    return pokemons;
   }
 
 }

@@ -19,11 +19,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: await getApplicationDocumentsDirectory());
-  await Hive.initFlutter();
-  Hive.registerAdapter(PokemonAdapter());
-  Hive.registerAdapter(PokemonsAdapter());
+  final doc = await getApplicationDocumentsDirectory();
+  HydratedBloc.storage = await HydratedStorage.build(storageDirectory: doc);
+  Hive.registerAdapter<Pokemon>(PokemonAdapter());
+  Hive.registerAdapter<Pokemons>(PokemonsAdapter());
+  await Hive.initFlutter(doc.path);
   await Hive.openBox('pokemons');
   runApp(const MyApp());
 }
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => UserCubit()), 
+        BlocProvider(create: (context) => UserCubit()),
         BlocProvider(create: (context) => FavPokemonsCubit()),
         BlocProvider(create: (context) => PokemonsCubit()),
       ],
