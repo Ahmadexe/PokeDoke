@@ -15,7 +15,7 @@ class PokemonsCubit extends Cubit<PokemonsState> {
       var currentState = state.pokemons;
       emit(PokemonsLoading(pokemons: currentState));
 
-      Pokemons? pokemons = PokemonsRepository.getPokemonsFromCache();
+      Pokemons? pokemons = await PokemonsRepository.getPokemonsFromCache();
 
       pokemons ??= await PokemonsRepository.getPokemons();
       
